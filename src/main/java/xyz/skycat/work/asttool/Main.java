@@ -12,13 +12,17 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
+import static xyz.skycat.work.asttool.L.pl;
+
 /**
  * Created by SS on 2016/06/29.
  */
 public class Main {
 
     public static void main(String... args) {
+        pl("<<<<< START >>>>>");
         Path path = Paths.get(args[0]);
+        pl("<<<<< " + path.getFileName());
         StringBuilder sb = new StringBuilder();
         try {
             List<String> allStrings = Files.readAllLines(path);
@@ -32,15 +36,13 @@ public class Main {
         ASTNode astNode = parser.createAST(new NullProgressMonitor());
         if(astNode instanceof CompilationUnit) {
             CompilationUnit unit = (CompilationUnit)astNode;
-            ASTVisitor visitor = new ASTVisitorEx();
-            PackageDeclaration pd = unit.getPackage();
-            IJavaElement je = unit.getJavaElement();
-            ITypeRoot tr = unit.getTypeRoot();
-            ASTNode root = unit.getRoot();
-            Map pp = unit.properties();
+            ParseResult res = new ParseResult();
+            ASTVisitorEx visitor = new ASTVisitorEx(res);
             unit.accept(visitor);
+            ParseResult res2 = visitor.getParseResult();
+            pl("### " + res2.packageName);
         }
-        System.out.println("End");
+        pl("<<<<<  END  >>>>>");
     }
 
 }
