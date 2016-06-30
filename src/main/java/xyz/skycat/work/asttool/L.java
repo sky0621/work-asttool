@@ -7,22 +7,38 @@ import org.eclipse.jdt.core.dom.ASTNode;
  */
 public class L {
 
+    private static boolean isOut = true;
+
+    public static void l() {
+        if (isOut) {
+            System.out.println();
+            System.out.println("================================================================");
+        }
+    }
+
+    public static void p(String s) {
+        if(isOut) {
+            System.out.print(s);
+            System.out.print("\t");
+        }
+    }
+
     public static void pl(String s) {
-        if(true) {
+        if(isOut) {
             System.out.println(s);
             System.out.println("================================================================");
         }
     }
 
     public static void pl(ASTNode node) {
-        if(true) {
+        if(isOut) {
             System.out.println(node.toString());
             System.out.println("================================================================");
         }
     }
 
     public static void pl(String title, ASTNode node) {
-        if(true) {
+        if(isOut) {
             System.out.println("[[[ " + title + " ]]] ");
             System.out.println(node.toString());
             System.out.println("================================================================");

@@ -370,7 +370,7 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public boolean visit(PackageDeclaration node) {
         pl("visit: PackageDeclaration", node);
-        this.parseResult.packageName = node.toString();
+        this.parseResult.packageName = node.toString().replace("package ", "").replace("\n", "").replace(";", "");
         return super.visit(node);
     }
 
@@ -527,6 +527,8 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public boolean visit(TypeDeclaration node) {
         pl("visit: TypeDeclaration", node);
+        this.parseResult.className = node.getName();
+        this.parseResult.superClassType = node.getSuperclassType();
         return super.visit(node);
     }
 

@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
+import static xyz.skycat.work.asttool.L.l;
+import static xyz.skycat.work.asttool.L.p;
 import static xyz.skycat.work.asttool.L.pl;
 
 /**
@@ -40,7 +42,10 @@ public class Main {
             ASTVisitorEx visitor = new ASTVisitorEx(res);
             unit.accept(visitor);
             ParseResult res2 = visitor.getParseResult();
-            pl("### " + res2.packageName);
+            p(res2.packageName);
+            p(res2.className.getFullyQualifiedName());
+            p(res2.superClassType.toString());
+            l();
         }
         pl("<<<<<  END  >>>>>");
     }
