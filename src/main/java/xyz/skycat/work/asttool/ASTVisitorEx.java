@@ -1,6 +1,9 @@
 package xyz.skycat.work.asttool;
 
 import org.eclipse.jdt.core.dom.*;
+import org.eclipse.jdt.internal.compiler.classfmt.MethodInfo;
+import xyz.skycat.work.asttool.result.ParseResult;
+import xyz.skycat.work.asttool.result.block.MethodInformation;
 
 import static xyz.skycat.work.asttool.L.pl;
 
@@ -327,7 +330,10 @@ public class ASTVisitorEx extends ASTVisitor {
 
     @Override
     public boolean visit(MethodDeclaration node) {
-        pl("visit: MethodDeclaration", node);
+        pl("visit: MethodDeclaration [" + node.getName() + "]", node);
+        MethodInformation info = new MethodInformation();
+        info.methodName = node.getName();
+        this.getParseResult().methodInformationList.add(info);
         return super.visit(node);
     }
 
@@ -370,7 +376,7 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public boolean visit(PackageDeclaration node) {
         pl("visit: PackageDeclaration", node);
-        this.parseResult.packageName = node.toString().replace("package ", "").replace("\n", "").replace(";", "");
+        this.parseResult.packageInformation.packageName = node.toString().replace("package ", "").replace("\n", "").replace(";", "");
         return super.visit(node);
     }
 
@@ -406,7 +412,7 @@ public class ASTVisitorEx extends ASTVisitor {
 
     @Override
     public boolean visit(QualifiedName node) {
-        pl("visit: QualifiedName", node);
+        pl("visit: QualifiedName [" + node.getQualifier().getFullyQualifiedName() + "]", node);
         return super.visit(node);
     }
 
@@ -424,7 +430,7 @@ public class ASTVisitorEx extends ASTVisitor {
 
     @Override
     public boolean visit(SimpleName node) {
-        pl("visit: SimpleName", node);
+        pl("visit: SimpleName [" + node.getIdentifier() + "]", node);
         return super.visit(node);
     }
 
@@ -527,8 +533,8 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public boolean visit(TypeDeclaration node) {
         pl("visit: TypeDeclaration", node);
-        this.parseResult.className = node.getName();
-        this.parseResult.superClassType = node.getSuperclassType();
+        this.parseResult.classInformation.className = node.getName();
+        this.parseResult.classInformation.superClassType = node.getSuperclassType();
         return super.visit(node);
     }
 

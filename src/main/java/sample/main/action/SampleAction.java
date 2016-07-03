@@ -18,4 +18,10 @@ public class SampleAction {
         return "index.jsp";
     }
 
+    @Execute(validator = false)
+    public String confirm() {
+        int c = sampleService.getSampleCount();
+        return "confirm.jsp";
+    }
+
 }

@@ -1,20 +1,19 @@
 package xyz.skycat.work.asttool;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.ITypeRoot;
-import org.eclipse.jdt.core.dom.*;
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import xyz.skycat.work.asttool.result.ParseResult;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
-import static xyz.skycat.work.asttool.L.l;
-import static xyz.skycat.work.asttool.L.p;
-import static xyz.skycat.work.asttool.L.pl;
+import static xyz.skycat.work.asttool.L.*;
 
 /**
  * Created by SS on 2016/06/29.
@@ -42,9 +41,10 @@ public class Main {
             ASTVisitorEx visitor = new ASTVisitorEx(res);
             unit.accept(visitor);
             ParseResult res2 = visitor.getParseResult();
-            p(res2.packageName);
-            p(res2.className.getFullyQualifiedName());
-            p(res2.superClassType.toString());
+            p(res2.packageInformation.packageName);
+            p(res2.classInformation.className.getFullyQualifiedName());
+//            p(res2.superClassType.toString());
+            res2.methodInformationList.stream().forEach(m -> p(m.methodName.getFullyQualifiedName()));
             l();
         }
         pl("<<<<<  END  >>>>>");
