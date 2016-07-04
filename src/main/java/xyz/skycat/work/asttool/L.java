@@ -9,6 +9,12 @@ public class L {
 
     private static boolean isOut = true;
 
+    public static void o(String s) {
+        if (isOut) {
+            System.out.println(s);
+        }
+    }
+
     public static void l() {
         if (isOut) {
             System.out.println();
@@ -17,30 +23,32 @@ public class L {
     }
 
     public static void p(String s) {
-        if(isOut) {
+        if (isOut) {
             System.out.print(s);
             System.out.print("\t");
         }
     }
 
     public static void pl(String s) {
-        if(isOut) {
+        if (isOut) {
             System.out.println(s);
             System.out.println("================================================================");
         }
     }
 
     public static void pl(ASTNode node) {
-        if(isOut) {
+        if (isOut) {
             System.out.println(node.toString());
             System.out.println("================================================================");
         }
     }
 
     public static void pl(String title, ASTNode node) {
-        if(isOut) {
+        if (isOut) {
             System.out.println("[[[ " + title + " ]]] ");
-            System.out.println(node.toString());
+            if (node != null) {
+                System.out.println(node.toString());
+            }
             System.out.println("================================================================");
         }
     }

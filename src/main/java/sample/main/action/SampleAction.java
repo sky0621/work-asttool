@@ -24,4 +24,8 @@ public class SampleAction {
         return "confirm.jsp";
     }
 
+    protected boolean needSession() {
+        return true;
+    }
+
 }
