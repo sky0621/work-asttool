@@ -1,7 +1,9 @@
 package xyz.skycat.work.asttool.result.block;
 
 import org.eclipse.jdt.core.dom.*;
+import xyz.skycat.work.asttool.result.block.layer.ServiceLayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static xyz.skycat.work.asttool.L.o;
@@ -11,33 +13,7 @@ import static xyz.skycat.work.asttool.L.o;
  */
 public class MethodInformation {
 
-//    public MethodDeclaration methodDeclaration;
-
-    private boolean isRecording = false;
-
-    public MethodInformation() {
-        this.isRecording = true;
-    }
-
-    public void done() {
-        this.isRecording = false;
-    }
-
-    public MethodInformation(MethodDeclaration node) {
-//        this.methodDeclaration = node;
-//        this.methodName = node.getName();
-//        this.extraDimensions = node.extraDimensions();
-//        this.body = node.getBody();
-//        this.receiverQualifier = node.getReceiverQualifier();
-//        this.receiverType = node.getReceiverType();
-//        this.returnType2 = node.getReturnType2();
-//        this.isConstructor = node.isConstructor();
-//        this.parameters = node.parameters();
-//        this.isVarargs = node.isVarargs();
-//        this.resolveBinding = node.resolveBinding();
-//        this.thrownExceptionTypes = node.thrownExceptionTypes();
-//        this.typeParameters = node.typeParameters();
-    }
+    public MethodDeclaration methodDeclaration;
 
     public SimpleName methodName;
 
@@ -65,11 +41,69 @@ public class MethodInformation {
 
     public MethodInvocation methodInvocation;
 
-    public Modifier modifier;
+    public List modifiers;
 
-    public NameQualifiedType nameQualifiedType;
+    public ChildListPropertyDescriptor modifiersProperty;
 
-    public NormalAnnotation normalAnnotation;
+    public Javadoc javadoc;
+
+    public ChildPropertyDescriptor javadocProperty;
+
+    public AST ast;
+
+    public boolean isExecute = false;
+
+    public List<ServiceLayer> serviceLayerList;
+
+    public MethodInformation(MethodDeclaration node) {
+        this.methodDeclaration = node;
+        this.methodName = node.getName();
+        this.extraDimensions = node.extraDimensions();
+        this.body = node.getBody();
+        this.receiverQualifier = node.getReceiverQualifier();
+        this.receiverType = node.getReceiverType();
+        this.returnType2 = node.getReturnType2();
+        this.isConstructor = node.isConstructor();
+        this.parameters = node.parameters();
+        this.isVarargs = node.isVarargs();
+        this.resolveBinding = node.resolveBinding();
+        this.thrownExceptionTypes = node.thrownExceptionTypes();
+        this.typeParameters = node.typeParameters();
+        this.modifiers = node.modifiers();
+        this.modifiersProperty = node.getModifiersProperty();
+        this.javadoc = node.getJavadoc();
+        this.javadocProperty = node.getJavadocProperty();
+        this.ast = node.getAST();
+
+        if (this.modifiers != null) {
+            for (Object modifier : this.modifiers) {
+                if (modifier instanceof NormalAnnotation) {
+                    NormalAnnotation annotation = (NormalAnnotation) modifier;
+                    Name typeName = annotation.getTypeName();
+                    if (typeName != null && "Execute".equals(typeName.getFullyQualifiedName())) {
+                        this.isExecute = true;
+                    }
+                }
+            }
+        }
+        serviceLayerList = new ArrayList<>();
+        if (this.body != null) {
+            for (Object statement : this.body.statements()) {
+                if (statement instanceof VariableDeclarationStatement) {
+                    VariableDeclarationStatement variableDeclarationStatement = (VariableDeclarationStatement) statement;
+                    List fragments = variableDeclarationStatement.fragments();
+                    if (fragments != null) {
+                        for (Object fragment : fragments) {
+                            if (fragment instanceof VariableDeclarationFragment) {
+                                VariableDeclarationFragment variableDeclarationFragment = (VariableDeclarationFragment) fragment;
+                                serviceLayerList.add(new ServiceLayer(variableDeclarationFragment));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public void show() {
         o("name: " + this.methodName);
@@ -97,14 +131,18 @@ public class MethodInformation {
         if (methodInvocation != null) {
             o("methodInvocation: " + methodInvocation.getName());
         }
-        if (modifier != null) {
-            o("modifier: " + modifier.toString());
+        if (modifiers != null) {
+            o("<modifiers>");
+            this.modifiers.stream().forEach(mdf -> o(mdf.toString()));
         }
-        if (nameQualifiedType != null) {
-            o("nameQualifiedType: " + nameQualifiedType.getName());
+        if (modifiersProperty != null) {
+            o("modifiersProperty: " + modifiersProperty.toString());
         }
-        if (normalAnnotation != null) {
-            o("normalAnnotation: " + normalAnnotation.toString());
+        if (javadoc != null) {
+            o("javadoc: " + javadoc.toString());
+        }
+        if (javadocProperty != null) {
+            o("javadocProperty: " + javadocProperty.toString());
         }
     }
 

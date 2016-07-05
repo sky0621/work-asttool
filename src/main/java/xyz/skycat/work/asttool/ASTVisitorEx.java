@@ -1,9 +1,9 @@
 package xyz.skycat.work.asttool;
 
 import org.eclipse.jdt.core.dom.*;
-import org.eclipse.jdt.internal.compiler.classfmt.MethodInfo;
 import xyz.skycat.work.asttool.result.ParseResult;
 import xyz.skycat.work.asttool.result.block.MethodInformation;
+import xyz.skycat.work.asttool.result.block.PackageInformation;
 
 import static xyz.skycat.work.asttool.L.o;
 import static xyz.skycat.work.asttool.L.pl;
@@ -329,38 +329,33 @@ public class ASTVisitorEx extends ASTVisitor {
         return super.visit(node);
     }
 
-    private MethodInformation info = null;
-
     @Override
     public boolean visit(MethodDeclaration node) {
         o("●●●●●●●●●● START ●●●●●●●●●●");
-        info = new MethodInformation();
         pl("visit: MethodDeclaration [" + node.getName() + "]", null);
-        info.show();
+        MethodInformation methodInformation = new MethodInformation(node);
+        this.getParseResult().methodInformationList.add(methodInformation);
+        methodInformation.show();
         return super.visit(node);
     }
 
     @Override
     public boolean visit(MethodInvocation node) {
-        info.methodInvocation = node;
         return super.visit(node);
     }
 
     @Override
     public boolean visit(Modifier node) {
-        info.modifier = node;
         return super.visit(node);
     }
 
     @Override
     public boolean visit(NameQualifiedType node) {
-        info.nameQualifiedType = node;
         return super.visit(node);
     }
 
     @Override
     public boolean visit(NormalAnnotation node) {
-        info.normalAnnotation = node;
         return super.visit(node);
     }
 
@@ -379,7 +374,7 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public boolean visit(PackageDeclaration node) {
         pl("visit: PackageDeclaration", node);
-        this.parseResult.packageInformation.packageName = node.toString().replace("package ", "").replace("\n", "").replace(";", "");
+        this.parseResult.packageInformation = new PackageInformation(node);
         return super.visit(node);
     }
 
@@ -404,42 +399,6 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public boolean visit(PrefixExpression node) {
         pl("visit: PrefixExpression", node);
-        return super.visit(node);
-    }
-
-    @Override
-    public boolean visit(PrimitiveType node) {
-//        pl("visit: PrimitiveType", node);
-        return super.visit(node);
-    }
-
-    @Override
-    public boolean visit(QualifiedName node) {
-//        pl("visit: QualifiedName [" + node.getQualifier().getFullyQualifiedName() + "]", node);
-        return super.visit(node);
-    }
-
-    @Override
-    public boolean visit(QualifiedType node) {
-//        pl("visit: QualifiedType", node);
-        return super.visit(node);
-    }
-
-    @Override
-    public boolean visit(ReturnStatement node) {
-//        pl("visit: ReturnStatement", node);
-        return super.visit(node);
-    }
-
-    @Override
-    public boolean visit(SimpleName node) {
-        pl("visit: SimpleName [" + node.getIdentifier() + "]", node);
-        return super.visit(node);
-    }
-
-    @Override
-    public boolean visit(SimpleType node) {
-        pl("visit: SimpleType", node);
         return super.visit(node);
     }
 
@@ -886,8 +845,6 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public void endVisit(MethodDeclaration node) {
 //        pl("endVisit: MethodDeclaration", node);
-        info.done();
-        this.getParseResult().methodInformationList.add(info);
         super.endVisit(node);
         o("●●●●●●●●●●  END  ●●●●●●●●●●");
     }

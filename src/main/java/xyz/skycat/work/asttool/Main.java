@@ -41,7 +41,7 @@ public class Main {
             ASTVisitorEx visitor = new ASTVisitorEx(res);
             unit.accept(visitor);
             ParseResult res2 = visitor.getParseResult();
-            p(res2.packageInformation.packageName);
+            p(res2.packageInformation.packageName.getFullyQualifiedName());
             p(res2.classInformation.className.getFullyQualifiedName());
 //            p(res2.superClassType.toString());
             res2.methodInformationList.stream().forEach(m -> p(m.methodName.getFullyQualifiedName()));

@@ -19,7 +19,6 @@ public class ParseResult {
     public List<MethodInformation> methodInformationList = null;
 
     public ParseResult() {
-        packageInformation = new PackageInformation();
         classInformation = new ClassInformation();
         methodInformationList = new ArrayList<>();
     }
