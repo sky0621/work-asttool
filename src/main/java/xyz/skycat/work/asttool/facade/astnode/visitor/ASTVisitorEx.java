@@ -1,4 +1,4 @@
-package xyz.skycat.work.asttool;
+package xyz.skycat.work.asttool.facade.astnode.visitor;
 
 import org.eclipse.jdt.core.dom.*;
 import xyz.skycat.work.asttool.result.ParseResult;
@@ -15,8 +15,8 @@ public class ASTVisitorEx extends ASTVisitor {
 
     private ParseResult parseResult;
 
-    public ASTVisitorEx(ParseResult parseResult) {
-        this.parseResult = parseResult;
+    public ASTVisitorEx() {
+        this.parseResult = new ParseResult();
     }
 
     public ParseResult getParseResult() {

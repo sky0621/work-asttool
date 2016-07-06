@@ -7,7 +7,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
  */
 public class L {
 
-    private static boolean isOut = true;
+    private static boolean isOut = false;
 
     public static void o(String s) {
         if (isOut) {
