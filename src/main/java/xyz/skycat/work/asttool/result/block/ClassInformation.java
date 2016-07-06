@@ -17,6 +17,10 @@ public class ClassInformation implements IfClassInformation {
 
     public SimpleName className;
 
+    public String classNameStr() {
+        return className == null ? null : className.getFullyQualifiedName();
+    }
+
     public Type superClassType;
 
     public ClassInformation() {

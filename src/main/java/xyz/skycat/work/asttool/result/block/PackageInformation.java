@@ -20,6 +20,10 @@ public class PackageInformation {
 
     public Name packageName;
 
+    public String packageNameStr() {
+        return packageName == null ? null : packageName.getFullyQualifiedName();
+    }
+
     public IPackageBinding resolveBinding;
 
     public List structuralPropertiesForType;

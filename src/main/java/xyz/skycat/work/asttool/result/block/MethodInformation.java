@@ -17,6 +17,10 @@ public class MethodInformation {
 
     public SimpleName methodName;
 
+    public String methodNameStr() {
+        return methodName == null ? null : methodName.getFullyQualifiedName();
+    }
+
     public List extraDimensions;
 
     public Block body;
