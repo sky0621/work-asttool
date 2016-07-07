@@ -1,6 +1,6 @@
-package xyz.skycat.work.asttool.targetsearch;
+package xyz.skycat.work.asttool;
 
-import xyz.skycat.work.asttool.facade.IfAstMakeFacade;
+import xyz.skycat.work.asttool.parser.IfFileParser;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -11,19 +11,18 @@ import java.nio.file.attribute.BasicFileAttributes;
 /**
  * Created by SS on 2016/06/04.
  */
-// parameter is Path only ...?
 public class SourceFileVisitor implements FileVisitor<Path> {
 
-    private IfAstMakeFacade facade;
+    private IfFileParser fileParser;
+    public ParseResultAggregator parseResultAggregator;
 
-    public void setIfAstMakeFacade(IfAstMakeFacade facade) {
-
-        this.facade = facade;
+    public void setIfAstMakeFacade(IfFileParser fileParser) {
+        this.fileParser = fileParser;
+        parseResultAggregator = new ParseResultAggregator();
     }
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-
         // TODO think! what to do.
 //        System.out.println("[PRE]" + dir.getFileName().toString());
         return FileVisitResult.CONTINUE;
@@ -31,18 +30,20 @@ public class SourceFileVisitor implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-
         try {
-            facade.parseProcess(file);
+            ParseResult parseResult = fileParser.parse(file);
+            if (parseResult != null) {
+                parseResultAggregator.addParseResult(parseResult.parseKind, parseResult);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return FileVisitResult.TERMINATE;
         }
         return FileVisitResult.CONTINUE;
     }
 
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-
         // TODO error handling.
         System.out.println("[FAILED]" + file.getFileName().toString());
         return FileVisitResult.TERMINATE;
@@ -50,7 +51,6 @@ public class SourceFileVisitor implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-
         // TODO think! what to do.
 //        System.out.println("[POST]" + dir.getFileName().toString());
         return FileVisitResult.CONTINUE;

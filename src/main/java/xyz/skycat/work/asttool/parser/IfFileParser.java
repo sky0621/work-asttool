@@ -1,12 +1,13 @@
-package xyz.skycat.work.asttool.facade.sourceparser;
+package xyz.skycat.work.asttool.parser;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
-import xyz.skycat.work.asttool.exception.AstMakeException;
-import xyz.skycat.work.asttool.facade.astnode.CompilationUnitWrapper;
-import xyz.skycat.work.asttool.facade.astnode.IfCompilationUnitWrapper;
+import xyz.skycat.work.asttool.ASTVisitorEx;
+import xyz.skycat.work.asttool.AstMakeException;
+import xyz.skycat.work.asttool.ParseKindEnum;
+import xyz.skycat.work.asttool.ParseResult;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,13 +16,29 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Created by SS on 2016/05/27.
+ * Created by SS on 2016/07/08.
  */
-public class SourceParser implements IfSourceParser {
+public interface IfFileParser {
 
-    // wrap JSqlParser and Statement.
-    @Override
-    public IfCompilationUnitWrapper parse(Path sourceFilePath) throws AstMakeException {
+    // CoR
+    // TemplateMethod
+
+    public default ParseResult parse(Path sourceFilePath) throws AstMakeException {
+
+        if (sourceFilePath == null) {
+            return null;
+        }
+
+        if (!ParseKindEnum.hasPackageName(sourceFilePath.toString())) {
+            return null;
+        }
+
+        if (!isTarget(sourceFilePath)) {
+            if (getChain() == null) {
+                return null;
+            }
+            return getChain().parse(sourceFilePath);
+        }
 
         StringBuilder sb = new StringBuilder();
         try {
@@ -51,7 +68,16 @@ public class SourceParser implements IfSourceParser {
             throw new AstMakeException(e);
         }
 
-        return new CompilationUnitWrapper(astNode);
+        ASTVisitorEx visitor = new ASTVisitorEx(getParseKind());
+        astNode.accept(visitor);
+
+        return visitor.parseResult;
     }
+
+    boolean isTarget(Path path);
+
+    IfFileParser getChain();
+
+    ParseKindEnum getParseKind();
 
 }

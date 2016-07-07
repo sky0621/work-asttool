@@ -1,7 +1,6 @@
-package xyz.skycat.work.asttool.result.block;
+package xyz.skycat.work.asttool.parts;
 
 import org.eclipse.jdt.core.dom.*;
-import xyz.skycat.work.asttool.result.block.layer.ServiceLayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +56,7 @@ public class MethodInformation {
 
     public boolean isExecute = false;
 
-    public List<ServiceLayer> serviceLayerList;
+    public List<FragmentInformation> fragmentInformationList;
 
     public MethodInformation(MethodDeclaration node) {
         this.methodDeclaration = node;
@@ -90,7 +89,7 @@ public class MethodInformation {
                 }
             }
         }
-        serviceLayerList = new ArrayList<>();
+        fragmentInformationList = new ArrayList<>();
         if (this.body != null) {
             for (Object statement : this.body.statements()) {
                 if (statement instanceof VariableDeclarationStatement) {
@@ -100,7 +99,7 @@ public class MethodInformation {
                         for (Object fragment : fragments) {
                             if (fragment instanceof VariableDeclarationFragment) {
                                 VariableDeclarationFragment variableDeclarationFragment = (VariableDeclarationFragment) fragment;
-                                serviceLayerList.add(new ServiceLayer(variableDeclarationFragment));
+                                fragmentInformationList.add(new FragmentInformation(variableDeclarationFragment));
                             }
                         }
                     }

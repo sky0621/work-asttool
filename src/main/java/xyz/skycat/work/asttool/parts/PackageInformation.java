@@ -1,4 +1,4 @@
-package xyz.skycat.work.asttool.result.block;
+package xyz.skycat.work.asttool.parts;
 
 import org.eclipse.jdt.core.dom.*;
 

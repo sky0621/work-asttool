@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/ASTVisitorEx.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/Argument.java" charset="windows-31j" />
+    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/AstMakeException.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/Executor.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/SourceFileVisitor.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/config/DefaultConfiguration.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/config/IfConfiguration.java" charset="windows-31j" />
-    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/exception/AstMakeException.java" charset="windows-31j" />
-    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/AstMakeFacade.java" charset="windows-31j" />
-    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/IfAstMakeFacade.java" charset="windows-31j" />
-    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/TableAstMakeFacade.java" charset="windows-31j" />
-    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/astnode/visitor/ASTVisitorEx.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/FileParser.java" charset="windows-31j" />
+    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/IfFileParser.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/factory/SourceParserFactory.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/sourceparser/IfSourceParser.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/facade/sourceparser/SourceParser.java" charset="windows-31j" />
@@ -18,7 +18,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/output/ConsoleOutputer.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/output/IfAstOutputer.java" charset="windows-31j" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/output/TsvOutputer.java" charset="windows-31j" />
-    <file url="file://$PROJECT_DIR$/src/main/java/xyz/skycat/work/asttool/targetsearch/SourceFileVisitor.java" charset="windows-31j" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

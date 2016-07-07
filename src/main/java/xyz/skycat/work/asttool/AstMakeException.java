@@ -1,4 +1,4 @@
-package xyz.skycat.work.asttool.exception;
+package xyz.skycat.work.asttool;
 
 import java.nio.file.Path;
 

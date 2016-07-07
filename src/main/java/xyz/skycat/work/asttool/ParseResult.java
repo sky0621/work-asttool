@@ -1,8 +1,8 @@
-package xyz.skycat.work.asttool.result;
+package xyz.skycat.work.asttool;
 
-import xyz.skycat.work.asttool.result.block.ClassInformation;
-import xyz.skycat.work.asttool.result.block.MethodInformation;
-import xyz.skycat.work.asttool.result.block.PackageInformation;
+import xyz.skycat.work.asttool.parts.ClassInformation;
+import xyz.skycat.work.asttool.parts.MethodInformation;
+import xyz.skycat.work.asttool.parts.PackageInformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +12,16 @@ import java.util.List;
  */
 public class ParseResult {
 
+    public ParseKindEnum parseKind;
+
     public PackageInformation packageInformation = null;
 
     public ClassInformation classInformation = null;
 
     public List<MethodInformation> methodInformationList = null;
 
-    public ParseResult() {
+    public ParseResult(ParseKindEnum parseKind) {
+        this.parseKind = parseKind;
         classInformation = new ClassInformation();
         methodInformationList = new ArrayList<>();
     }

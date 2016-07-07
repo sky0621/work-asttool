@@ -1,9 +1,8 @@
-package xyz.skycat.work.asttool.facade.astnode.visitor;
+package xyz.skycat.work.asttool;
 
 import org.eclipse.jdt.core.dom.*;
-import xyz.skycat.work.asttool.result.ParseResult;
-import xyz.skycat.work.asttool.result.block.MethodInformation;
-import xyz.skycat.work.asttool.result.block.PackageInformation;
+import xyz.skycat.work.asttool.parts.MethodInformation;
+import xyz.skycat.work.asttool.parts.PackageInformation;
 
 import static xyz.skycat.work.asttool.L.o;
 import static xyz.skycat.work.asttool.L.pl;
@@ -13,14 +12,10 @@ import static xyz.skycat.work.asttool.L.pl;
  */
 public class ASTVisitorEx extends ASTVisitor {
 
-    private ParseResult parseResult;
+    public ParseResult parseResult;
 
-    public ASTVisitorEx() {
-        this.parseResult = new ParseResult();
-    }
-
-    public ParseResult getParseResult() {
-        return this.parseResult;
+    public ASTVisitorEx(ParseKindEnum parseKind) {
+        parseResult = new ParseResult(parseKind);
     }
 
     @Override
@@ -334,7 +329,7 @@ public class ASTVisitorEx extends ASTVisitor {
         o("●●●●●●●●●● START ●●●●●●●●●●");
         pl("visit: MethodDeclaration [" + node.getName() + "]", null);
         MethodInformation methodInformation = new MethodInformation(node);
-        this.getParseResult().methodInformationList.add(methodInformation);
+        parseResult.methodInformationList.add(methodInformation);
         methodInformation.show();
         return super.visit(node);
     }
@@ -495,8 +490,8 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public boolean visit(TypeDeclaration node) {
         pl("visit: TypeDeclaration", node);
-        this.parseResult.classInformation.className = node.getName();
-        this.parseResult.classInformation.superClassType = node.getSuperclassType();
+        parseResult.classInformation.className = node.getName();
+        parseResult.classInformation.superClassType = node.getSuperclassType();
         return super.visit(node);
     }
 

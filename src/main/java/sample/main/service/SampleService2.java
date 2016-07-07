@@ -12,4 +12,10 @@ public class SampleService2 {
         return m.execQuery("aaa/bbb.sql");
     }
 
+    public String getSampleString(String prm) {
+        JdbcManager m = new JdbcManager();
+        prm.toString();
+        return m.execQuery("aaa/bbb.sql");
+    }
+
 }

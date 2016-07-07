@@ -12,6 +12,7 @@ public class Argument {
 
         // TODO various check!
 
+        // args[0] is target root directory
         return Paths.get(args[0]).toAbsolutePath();
     }
 
