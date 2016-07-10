@@ -25,16 +25,34 @@ public class Executor {
             System.out.println(e.getMessage());
             return;
         }
+
         ParseResultAggregator parseResultAggregator = visitor.parseResultAggregator;
-        parseResultAggregator.parseResultMap.values().stream().forEach( parseResults -> {
-            parseResults.stream().forEach( parseResult -> {
+
+        parseResultAggregator.parseResultMap.values().stream().forEach(parseResults -> {
+            parseResults.stream().forEach(parseResult -> {
                 PackageInformation pkgInfo = parseResult.packageInformation;
                 ClassInformation classInfo = parseResult.classInformation;
                 pl("[PACKAGE]\t[CLASS]\t[METHOD]");
                 parseResult.methodInformationList.stream().forEach(methodInfo -> {
-                    if(methodInfo.fragmentInformationList.isEmpty()) { System.out.println(String.format("%s\t%s\t%s\t%s\t%s", pkgInfo.packageNameStr(), classInfo.classNameStr(), methodInfo.methodNameStr(), "", "")); }
+                    if (methodInfo.fragmentInformationList.isEmpty()) {
+                        System.out.println(String.format(
+                                "%s\t%s\t%s\t%s\t%s\t%s",
+                                pkgInfo.packageNameStr(),
+                                classInfo.classNameStr(),
+                                classInfo.superClassName(),
+                                methodInfo.methodNameStr(),
+                                "",
+                                ""));
+                    }
                     methodInfo.fragmentInformationList.forEach(serviceLayer -> {
-                        System.out.println(String.format("%s\t%s\t%s\t%s\t%s", pkgInfo.packageNameStr(), classInfo.classNameStr(), methodInfo.methodNameStr(), serviceLayer.caller, serviceLayer.callee));
+                        System.out.println(String.format(
+                                "%s\t%s\t%s\t%s\t%s\t%s",
+                                pkgInfo.packageNameStr(),
+                                classInfo.classNameStr(),
+                                classInfo.superClassName(),
+                                methodInfo.methodNameStr(),
+                                serviceLayer.caller,
+                                serviceLayer.callee));
                     });
                 });
             });

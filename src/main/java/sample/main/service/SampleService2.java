@@ -5,7 +5,7 @@ import sample.main.jdbc.JdbcManager;
 /**
  * Created by SS on 2016/06/30.
  */
-public class SampleService2 {
+public class SampleService2 extends AbstractSampleService {
 
     public String getSampleString() {
         JdbcManager m = new JdbcManager();

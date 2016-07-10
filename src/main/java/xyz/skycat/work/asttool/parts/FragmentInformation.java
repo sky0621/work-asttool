@@ -8,14 +8,14 @@ import java.util.Map;
 /**
  * Created by SS on 2016/07/07.
  */
-public class FragmentInformation {
+public class FragmentInformation implements IfInformation {
 
     public VariableDeclarationFragment variableDeclarationFragment;
 
     public SimpleName fragmentName;
 
     public String fragmentNameStr() {
-        return fragmentName == null ? null : fragmentName.getFullyQualifiedName();
+        return fragmentName == null ? NO_NAME : fragmentName.getFullyQualifiedName();
     }
 
     public Map properties;

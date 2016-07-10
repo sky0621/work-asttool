@@ -22,7 +22,6 @@ public class ParseResult {
 
     public ParseResult(ParseKindEnum parseKind) {
         this.parseKind = parseKind;
-        classInformation = new ClassInformation();
         methodInformationList = new ArrayList<>();
     }
 

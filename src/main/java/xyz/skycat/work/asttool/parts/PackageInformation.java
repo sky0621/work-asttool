@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by SS on 2016/07/04.
  */
-public class PackageInformation {
+public class PackageInformation implements IfInformation {
 
     public PackageDeclaration packageDeclaration;
 
@@ -21,7 +21,7 @@ public class PackageInformation {
     public Name packageName;
 
     public String packageNameStr() {
-        return packageName == null ? null : packageName.getFullyQualifiedName();
+        return packageName == null ? NO_NAME : packageName.getFullyQualifiedName();
     }
 
     public IPackageBinding resolveBinding;

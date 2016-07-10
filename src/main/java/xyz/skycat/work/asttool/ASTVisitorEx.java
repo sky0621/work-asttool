@@ -1,6 +1,7 @@
 package xyz.skycat.work.asttool;
 
 import org.eclipse.jdt.core.dom.*;
+import xyz.skycat.work.asttool.parts.ClassInformation;
 import xyz.skycat.work.asttool.parts.MethodInformation;
 import xyz.skycat.work.asttool.parts.PackageInformation;
 
@@ -330,7 +331,6 @@ public class ASTVisitorEx extends ASTVisitor {
         pl("visit: MethodDeclaration [" + node.getName() + "]", null);
         MethodInformation methodInformation = new MethodInformation(node);
         parseResult.methodInformationList.add(methodInformation);
-        methodInformation.show();
         return super.visit(node);
     }
 
@@ -490,8 +490,7 @@ public class ASTVisitorEx extends ASTVisitor {
     @Override
     public boolean visit(TypeDeclaration node) {
         pl("visit: TypeDeclaration", node);
-        parseResult.classInformation.className = node.getName();
-        parseResult.classInformation.superClassType = node.getSuperclassType();
+        parseResult.classInformation = new ClassInformation(node);
         return super.visit(node);
     }
 

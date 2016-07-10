@@ -5,19 +5,17 @@ import org.eclipse.jdt.core.dom.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static xyz.skycat.work.asttool.L.o;
-
 /**
  * Created by SS on 2016/07/04.
  */
-public class MethodInformation {
+public class MethodInformation implements IfInformation {
 
     public MethodDeclaration methodDeclaration;
 
     public SimpleName methodName;
 
     public String methodNameStr() {
-        return methodName == null ? null : methodName.getFullyQualifiedName();
+        return methodName == null ? NO_NAME : methodName.getFullyQualifiedName();
     }
 
     public List extraDimensions;
@@ -105,47 +103,6 @@ public class MethodInformation {
                     }
                 }
             }
-        }
-    }
-
-    public void show() {
-        o("name: " + this.methodName);
-        o("returnType2: " + this.returnType2);
-        o("receiverType: " + this.receiverType);
-        if (this.receiverQualifier != null) {
-            o("receiverQualifier: " + this.receiverQualifier.getFullyQualifiedName());
-        }
-        if (this.extraDimensions != null) {
-            o("<extraDimensions>");
-            this.extraDimensions.stream().forEach(dimen -> o(dimen.toString()));
-        }
-        if (this.parameters != null) {
-            o("<parameters>");
-            this.parameters.stream().forEach(prm -> o(prm.toString()));
-        }
-        if (this.thrownExceptionTypes != null) {
-            o("<thrownExceptionTypes>");
-            this.thrownExceptionTypes.stream().forEach(exc -> o(exc.toString()));
-        }
-        if (this.typeParameters != null) {
-            o("<typeParameters>");
-            this.typeParameters.stream().forEach(tp -> o(tp.toString()));
-        }
-        if (methodInvocation != null) {
-            o("methodInvocation: " + methodInvocation.getName());
-        }
-        if (modifiers != null) {
-            o("<modifiers>");
-            this.modifiers.stream().forEach(mdf -> o(mdf.toString()));
-        }
-        if (modifiersProperty != null) {
-            o("modifiersProperty: " + modifiersProperty.toString());
-        }
-        if (javadoc != null) {
-            o("javadoc: " + javadoc.toString());
-        }
-        if (javadocProperty != null) {
-            o("javadocProperty: " + javadocProperty.toString());
         }
     }
 
