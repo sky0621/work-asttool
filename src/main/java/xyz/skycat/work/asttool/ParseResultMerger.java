@@ -15,11 +15,16 @@ public class ParseResultMerger {
         List<IfInformation> informationList = new ArrayList<>();
         List<ParseResult> actionList = parseResultMap.get(ParseKindEnum.ACTION);
         actionList.parallelStream().forEach(action -> {
-            action.methodInformationList.parallelStream().filter(method -> method.isExecute).forEach(method -> {
+            action.methodInformationList.parallelStream()
+                    .filter(method -> !action.classInformation.isAbstract)
+                    .filter(method -> method.isExecute)
+                    .forEach(method -> {
                 method.fragmentInformationList.parallelStream().filter(fragment -> {
-                    return fragment.caller.contains("logic") || fragment.caller.contains("service");
-                }).forEach(fragment -> {
+                    if (fragment.isLogic) {
 
+                    }
+                        // FIXME
+                        return true;
                 });
             });
         });

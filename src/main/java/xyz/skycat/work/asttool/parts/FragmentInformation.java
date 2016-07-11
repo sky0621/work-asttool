@@ -40,6 +40,10 @@ public class FragmentInformation implements IfInformation {
 
     public String callee;
 
+    public boolean isLogic = false;
+
+    public boolean isService = false;
+
     public FragmentInformation(VariableDeclarationFragment fragment) {
         this.variableDeclarationFragment = fragment;
         this.fragmentName = fragment.getName();
@@ -55,6 +59,13 @@ public class FragmentInformation implements IfInformation {
             if (id > 0) {
                 this.caller = this.callMethodStr.substring(0, id);
                 this.callee = this.callMethodStr.substring(id + 1);
+
+                if (this.caller.contains("Logic")) {
+                    this.isLogic = true;
+                }
+                if (this.caller.contains("Service")) {
+                    this.isService = true;
+                }
             }
 //            String[] callercallee = this.callMethodStr.split(".", 0);
 //            if (callercallee != null && callercallee.length == 2) {

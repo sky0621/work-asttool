@@ -87,6 +87,7 @@ public class MethodInformation implements IfInformation {
                 }
             }
         }
+
         fragmentInformationList = new ArrayList<>();
         if (this.body != null) {
             for (Object statement : this.body.statements()) {

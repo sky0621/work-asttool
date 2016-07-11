@@ -27,11 +27,17 @@ public class ClassInformation implements IfInformation {
 
     public List<MethodDeclaration> methodDeclarationList;
 
+    public boolean isAbstract = false;
+
     public ClassInformation(TypeDeclaration node) {
         this.className = node.getName();
         this.superClassType = node.getSuperclassType();
         this.parent = node.getParent();
         this.locationInParent = node.getLocationInParent();
+
+        if (this.classNameStr() != null && this.classNameStr().contains("Abstract")) {
+            this.isAbstract = true;
+        }
     }
 
 }

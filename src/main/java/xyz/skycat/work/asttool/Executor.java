@@ -28,11 +28,11 @@ public class Executor {
 
         ParseResultAggregator parseResultAggregator = visitor.parseResultAggregator;
 
+        System.out.println("[PACKAGE]\t[CLASS]\t[SUPER CLASS]\t[METHOD VAR]\t[METHOD DO]");
         parseResultAggregator.parseResultMap.values().stream().forEach(parseResults -> {
             parseResults.stream().forEach(parseResult -> {
                 PackageInformation pkgInfo = parseResult.packageInformation;
                 ClassInformation classInfo = parseResult.classInformation;
-                pl("[PACKAGE]\t[CLASS]\t[METHOD]");
                 parseResult.methodInformationList.stream().forEach(methodInfo -> {
                     if (methodInfo.fragmentInformationList.isEmpty()) {
                         System.out.println(String.format(
