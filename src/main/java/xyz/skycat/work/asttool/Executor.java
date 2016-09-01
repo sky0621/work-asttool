@@ -1,11 +1,12 @@
 package xyz.skycat.work.asttool;
 
 import java.io.IOException;
-
-import org.eclipse.core.runtime.Path;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import xyz.skycat.work.asttool.parser.ActionFileParser;
 import xyz.skycat.work.asttool.parts.ClassInformation;
+import xyz.skycat.work.asttool.parts.PackageInformation;
 
 /**
  * Created by SS on 2016/06/10.
