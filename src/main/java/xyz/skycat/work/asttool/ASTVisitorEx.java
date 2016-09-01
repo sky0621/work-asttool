@@ -1,6 +1,7 @@
 package xyz.skycat.work.asttool;
 
 import org.eclipse.jdt.core.dom.*;
+import xyz.skycat.work.asttool.parseresult.IfParseResult;
 import xyz.skycat.work.asttool.parts.ClassInformation;
 import xyz.skycat.work.asttool.parts.MethodInformation;
 import xyz.skycat.work.asttool.parts.PackageInformation;
@@ -11,9 +12,9 @@ import static xyz.skycat.work.asttool.L.pl;
 /**
  * Created by SS on 2016/06/29.
  */
-public class ASTVisitorEx extends ASTVisitor {
+public class ASTVisitorEx<RES extends IfParseResult> extends ASTVisitor {
 
-    public ParseResult parseResult;
+    public RES parseResult;
 
     public ASTVisitorEx(ParseKindEnum parseKind) {
         parseResult = new ParseResult(parseKind);

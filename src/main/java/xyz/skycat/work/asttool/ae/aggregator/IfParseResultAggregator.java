@@ -1,7 +1,7 @@
-package xyz.skycat.work.asttool.aggregator;
+package xyz.skycat.work.asttool.ae.aggregator;
 
-import xyz.skycat.work.asttool.ParseKindEnum;
-import xyz.skycat.work.asttool.parseresult.IfParseResult;
+import xyz.skycat.work.asttool.ae.ParseKindEnum;
+import xyz.skycat.work.asttool.ae.parseresult.IfParseResult;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,10 +4,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
-import xyz.skycat.work.asttool.ASTVisitorEx;
 import xyz.skycat.work.asttool.AstMakeException;
 import xyz.skycat.work.asttool.ParseKindEnum;
-import xyz.skycat.work.asttool.ParseResult;
+import xyz.skycat.work.asttool.astvisitor.ASTParseVisitor;
+import xyz.skycat.work.asttool.parseresult.IfParseResult;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,12 +18,14 @@ import java.util.List;
 /**
  * Created by SS on 2016/07/08.
  */
-public interface IfFileParser {
+public interface IfSourceParser<RES extends IfParseResult, VST extends ASTParseVisitor> {
 
     // CoR
     // TemplateMethod
 
-    public default ParseResult parse(Path sourceFilePath) throws AstMakeException {
+    VST getASTParseVisitor();
+
+    public default IfParseResult parse(Path sourceFilePath) throws AstMakeException {
 
         if (sourceFilePath == null) {
             return null;
@@ -68,15 +70,15 @@ public interface IfFileParser {
             throw new AstMakeException(e);
         }
 
-        ASTVisitorEx visitor = new ASTVisitorEx(getParseKind());
+        VST visitor = getASTParseVisitor();
         astNode.accept(visitor);
 
-        return visitor.parseResult;
+        return visitor.getParseResult();
     }
 
     boolean isTarget(Path path);
 
-    IfFileParser getChain();
+    IfSourceParser getChain();
 
     ParseKindEnum getParseKind();
 

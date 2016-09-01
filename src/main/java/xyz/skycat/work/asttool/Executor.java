@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import xyz.skycat.work.asttool.parser.ActionFileParser;
+import xyz.skycat.work.asttool.parser.ActionSourceParser;
 import xyz.skycat.work.asttool.parts.ClassInformation;
 import xyz.skycat.work.asttool.parts.PackageInformation;
+import xyz.skycat.work.asttool.sourcevisitor.ActionSourceVisitor;
 
 /**
  * Created by SS on 2016/06/10.
@@ -14,8 +15,18 @@ import xyz.skycat.work.asttool.parts.PackageInformation;
 public class Executor {
 
     public void run(Path targetPath) {
+
+        ActionSourceVisitor actionSourceVisitor = new ActionSourceVisitor();
+        try {
+            Files.walkFileTree(targetPath, actionSourceVisitor);
+        } catch (IOException e) {
+            // TODO error handling.
+            System.out.println(e.getMessage());
+            return;
+        }
+
         SourceFileVisitor visitor = new SourceFileVisitor();
-        visitor.setIfAstMakeFacade(new ActionFileParser());
+        visitor.setIfAstMakeFacade(new ActionSourceParser());
         try {
             Files.walkFileTree(targetPath, visitor);
         } catch (IOException e) {

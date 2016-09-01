@@ -7,7 +7,7 @@ import java.nio.file.Path;
 /**
  * Created by SS on 2016/07/08.
  */
-public class LogicFileParser implements IfFileParser {
+public class ServiceSourceParser implements IfSourceParser {
 
     @Override
     public boolean isTarget(Path path) {
@@ -15,13 +15,13 @@ public class LogicFileParser implements IfFileParser {
     }
 
     @Override
-    public IfFileParser getChain() {
-        return new ServiceFileParser();
+    public IfSourceParser getChain() {
+        return null;
     }
 
     @Override
     public ParseKindEnum getParseKind() {
-        return ParseKindEnum.LOGIC;
+        return ParseKindEnum.SERVICE;
     }
 
 }

@@ -1,6 +1,6 @@
 package xyz.skycat.work.asttool;
 
-import xyz.skycat.work.asttool.parser.IfFileParser;
+import xyz.skycat.work.asttool.parser.IfSourceParser;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -13,10 +13,10 @@ import java.nio.file.attribute.BasicFileAttributes;
  */
 public class SourceFileVisitor implements FileVisitor<Path> {
 
-    private IfFileParser fileParser;
+    private IfSourceParser fileParser;
     public ParseResultAggregator parseResultAggregator;
 
-    public void setIfAstMakeFacade(IfFileParser fileParser) {
+    public void setIfAstMakeFacade(IfSourceParser fileParser) {
         this.fileParser = fileParser;
         parseResultAggregator = new ParseResultAggregator();
     }
